@@ -196,11 +196,6 @@ class Analysis():
   
 if __name__ == "__main__":
    
-    '''
-    To add:
-      - opzione runnnare in parallelo su più segnali
-    '''
-
     myanalysis = Analysis()
     myanalysis.maxEvents = 10 #To add function to pass this from command line with --nevents ; use python argparser
     myanalysis.inputFileName  = sys.argv[1] #To modify with the parser and using --input or -i
