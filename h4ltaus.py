@@ -60,6 +60,9 @@ class Analysis():
     #Here we have the event loop
     for entry in range(0, self.t.GetEntries()):
       if entry > self.maxEvents: break
+      
+      if self.debug: print('------------ NEW EVENT --------------')
+      
       self.t.GetEntry( entry )
       self.AssignBranches()
       self.FetchWeights()
@@ -143,6 +146,9 @@ class Analysis():
   
   def FillKinematicPlotsPL(self,channel):
     self.histo[channel+'_n_electrons'].Fill(len(self.preselectedObjects['electrons']),self.weight)
+    
+    for el in self.preselectedObjects['electrons']:
+      self.histo[channel+'_electron_pt'].Fill(el.pt(), self.weight)
       
       
   def PreselectObjects(self):
@@ -171,7 +177,7 @@ class Analysis():
       #*********************************#
       # TODO : add the other histograms #
       #*********************************#
-
+      self.histo[ch+'_electron_pt'] = ROOT.TH1F('electron_pt','TITLE;X AXIS TITLE;Y AXIS TITLE',10,0,100)
       #--------------------------------------------#
 
       #Reset the path where the histos are created
