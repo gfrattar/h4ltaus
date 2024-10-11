@@ -12,7 +12,7 @@ def execute_command(inputFileName,outputFileName):
 def main():
     
     arguments = []
-    num_cores = 14
+    num_cores = 2
 
     outputFileName = ''    
     outTag = 'h4ltaus'

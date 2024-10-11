@@ -65,8 +65,10 @@ class Analysis():
       self.FetchWeights()
       
       # print("Event weight = {}".format(self.weight))
-      
       self.PreselectObjects()
+          
+      for electron in self.preselectedObjects['electrons']:
+        print("{} {} {}".format(electron.pt(),electron.eta(),electron.phi()))
       
       #*************************#
       # Particle level analysis #
@@ -113,7 +115,7 @@ class Analysis():
     # TODO #
     #******#
     #self.PerformOverlapRemoval()
-    # --> remove all leptons within 0.3 of a jet
+    # --> remove all leptons within delta R 0.3 of a jet
     # --> require all leptons to have delta R > 0.1
   
     # Define a function that given a list of preselected objects prints out them and their properties
@@ -140,14 +142,16 @@ class Analysis():
     
   
   def FillKinematicPlotsPL(self,channel):
-    self.histo[channel+'_n_electrons'].Fill(1,self.weight)
+    self.histo[channel+'_n_electrons'].Fill(len(self.preselectedObjects['electrons']),self.weight)
       
       
   def PreselectObjects(self):
+        
     #Iterate over leptons and fill preselected objects "containers"
     self.preselectedObjects['electrons'] = [tp for tp in self.branch['Electrons'] if (tp.status() == 1 and tp.pt() > 5000. and abs(tp.eta()) < 2.5)]
     self.preselectedObjects['muons'] = [tp for tp in self.branch['Muons'] if (tp.status() == 1 and tp.pt() > 5000. and abs(tp.eta()) < 2.5)]
-    self.preselectedObjects['taus'] = [tp for tp in self.branch['Jets'] if (tp.pt() > 20000. and abs(tp.eta()) < 2.5) and tp.getAttribute['int']('ConeTruthLabelID')]
+    self.preselectedObjects['taus'] = [tp for tp in self.branch['Jets'] if (tp.pt() > 20000. and abs(tp.eta()) < 2.5) and tp.getAttribute['int']('ConeTruthLabelID') == 15]
+    
         
   def CreateHistograms(self):
 
