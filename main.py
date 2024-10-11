@@ -19,6 +19,9 @@ def main():
     inputDirectory = '/scratch/gfrattar/hzz_tau/Signal/'
     inputFiles = glob.glob(inputDirectory+'/*.root')
     
+    #Temporary to run over one single file
+    inputFiles = [inputFiles[0]]
+    
     if not os.path.exists('./outputs/'):
         os.makedirs('./outputs')
 
