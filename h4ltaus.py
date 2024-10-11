@@ -148,7 +148,7 @@ class Analysis():
     self.histo[channel+'_n_electrons'].Fill(len(self.preselectedObjects['electrons']),self.weight)
     
     for el in self.preselectedObjects['electrons']:
-      self.histo[channel+'_electron_pt'].Fill(el.pt(), self.weight)
+      self.histo[channel+'_electron_pt'].Fill(el.pt()/1000., self.weight)
       
       
   def PreselectObjects(self):
